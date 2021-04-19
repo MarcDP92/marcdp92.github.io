@@ -79,10 +79,6 @@ hr.star-primary:after {
     margin: 0 auto;
 }
 
-.img-rounded {
-    border-radius: 100%;
-}
-
 .text-justified {
     text-align: justify;
 }
@@ -514,4 +510,35 @@ footer .footer-below {
 .portfolio-modal .modal-backdrop {
     display: none;
     opacity: 0;
+}
+
+.border-item{
+  border: 3px solid #707070;
+  border-radius: 15px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+  padding-right: 20px;
+  padding-left: 20px;
+  box-shadow: 2px 2px #CECECE;
+  background-color: #F5F5F5;
+}
+
+.visible_border{
+  border: 2px solid black;
+}
+
+.center-img{
+  padding: 5px;
+}
+
+.margin-bottom{
+  margin-bottom: 15px;
+}
+
+.img-responsive{
+  border-radius: 10px;
+}
+
+.img-rounded {
+    border-radius: 100%;
 }
