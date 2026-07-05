@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marc Dabad — Game Designer</title>
+<meta name="description" content="Portfolio of Marc Dabad, Senior Game Designer. Game design work, deconstructions and casual game concepts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #131022;
+    --bg-glow: #241d45;
+    --surface: #1e1838;
+    --surface-edge: #322a58;
+    --gold: #ffc542;
+    --gold-deep: #e09a1f;
+    --violet: #8f7bff;
+    --text: #f2efff;
+    --text-dim: #a89fce;
+    --radius-icon: 26%;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100vh;
+    font-family: "Nunito", system-ui, sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(1100px 600px at 50% -10%, var(--bg-glow) 0%, transparent 65%),
+      radial-gradient(800px 500px at 85% 110%, #1c1440 0%, transparent 60%),
+      var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* faint level-select grid, fades toward the middle */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(143,123,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(143,123,255,.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 30%, black 100%);
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 40%, transparent 30%, black 100%);
+    pointer-events: none;
+  }
+
+  main {
+    width: 100%;
+    max-width: 1040px;
+    padding: clamp(48px, 9vh, 96px) 24px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  /* ---------- Hero ---------- */
+
+  header { text-align: center; margin-bottom: clamp(48px, 8vh, 84px); }
+
+  .press-start {
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    animation: fadeUp .7s ease both;
+  }
+
+  h1 {
+    font-family: "Titan One", "Nunito", sans-serif;
+    font-weight: 400;
+    font-size: clamp(52px, 9vw, 96px);
+    line-height: .95;
+    letter-spacing: .01em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-shadow:
+      0 4px 0 #0d0a1c,
+      0 8px 24px rgba(143, 123, 255, .35);
+    animation: fadeUp .7s ease .08s both;
+  }
+
+  h1 .accent {
+    display: block;
+    background: linear-gradient(180deg, #ffe08a 0%, var(--gold) 55%, var(--gold-deep) 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 4px 0 #0d0a1c) drop-shadow(0 6px 18px rgba(255, 197, 66, .28));
+  }
+
+  .role {
+    margin-top: 22px;
+    font-size: clamp(16px, 2.2vw, 20px);
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp .7s ease .16s both;
+  }
+
+  .role::before, .role::after {
+    content: "";
+    width: 34px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--violet));
+    border-radius: 2px;
+  }
+  .role::after { transform: scaleX(-1); }
+
+  /* ---------- Level select ---------- */
+
+  .select-label {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--violet);
+    margin-bottom: 28px;
+    animation: fadeUp .7s ease .24s both;
+  }
+
+  .grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(20px, 3vw, 32px);
+    list-style: none;
+  }
+
+  .grid li { animation: fadeUp .7s ease both; }
+  .grid li:nth-child(1) { animation-delay: .30s; }
+  .grid li:nth-child(2) { animation-delay: .38s; }
+  .grid li:nth-child(3) { animation-delay: .46s; }
+  .grid li:nth-child(4) { animation-delay: .54s; }
+
+  .card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 22px 16px 20px;
+    background: linear-gradient(180deg, var(--surface) 0%, #171230 100%);
+    border: 1px solid var(--surface-edge);
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+  }
+
+  .card:hover, .card:focus-visible {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow:
+      0 14px 34px rgba(0, 0, 0, .45),
+      0 0 0 1px var(--gold),
+      0 0 28px rgba(255, 197, 66, .18);
+  }
+
+  .card:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .card:active { transform: translateY(-2px); }
+
+  .icon-wrap {
+    width: min(140px, 100%);
+    aspect-ratio: 1;
+    border-radius: var(--radius-icon);
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, .5),
+      inset 0 0 0 1px rgba(255, 255, 255, .12);
+    transition: transform .22s ease;
+  }
+
+  .card:hover .icon-wrap, .card:focus-visible .icon-wrap { transform: scale(1.05) rotate(-2deg); }
+
+  .icon-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* glossy app-icon shine */
+  .icon-wrap::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(160deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.06) 28%, transparent 45%);
+    pointer-events: none;
+  }
+
+  .card h2 {
+    font-family: "Nunito", sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--text);
+  }
+
+  .card .tag {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(255, 197, 66, .1);
+    border: 1px solid rgba(255, 197, 66, .3);
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .card .open {
+    margin-top: auto;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color .22s ease;
+  }
+
+  .card:hover .open, .card:focus-visible .open { color: var(--gold); }
+  .card .open::after { content: " ▸"; }
+
+  footer {
+    margin-top: clamp(56px, 9vh, 90px);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: .06em;
+    animation: fadeUp .7s ease .62s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    .card { flex-direction: row; text-align: left; align-items: center; gap: 18px; padding: 16px; }
+    .icon-wrap { width: 84px; flex-shrink: 0; }
+    .card-body { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+    .card .open { margin-top: 2px; }
+  }
+
+  @media (min-width: 481px) {
+    .card-body { display: contents; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="press-start">Press Start</p>
+    <h1>Marc <span class="accent">Dabad</span></h1>
+    <p class="role">Senior Game Designer</p>
+  </header>
+
+  <p class="select-label">Select a project</p>
+
+  <ul class="grid">
+    <li>
+      <a class="card" href="files/Deck-Dungeon-Portfolio.pdf" target="_blank" rel="noopener">
+        <span class="icon-wrap"><img src="icons/deck dungeon icon.jpeg" alt="Deck Dungeon game icon"></span>
+        <span class="card-body">
+          <span class="tag">Game Design</span>
+          <h2>Deck Dungeon — Card Battler RPG</h2>
+          <span class="open">Open PDF</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="files/Invincible%20Deconstruction.pdf" target="_blank" rel="noopener">
+        <span class="icon-wrap"><img src="icons/invincible icon.webp" alt="Invincible: Guarding the Globe game icon"></span>
+        <span class="card-body">
+          <span class="tag">Deconstruction</span>
+          <h2>Invincible: Guarding the Globe</h2>
+          <span class="open">Open PDF</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="files/Mob%20Control%20Deconstruction.pdf" target="_blank" rel="noopener">
+        <span class="icon-wrap"><img src="icons/mob control icon.webp" alt="Mob Control game icon"></span>
+        <span class="card-body">
+          <span class="tag">Deconstruction</span>
+          <h2>Mob Control</h2>
+          <span class="open">Open PDF</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="card" href="files/Casual_Portfolio.pdf" target="_blank" rel="noopener">
+        <span class="icon-wrap"><img src="icons/ab dreamblast icon.webp" alt="Casual games icon"></span>
+        <span class="card-body">
+          <span class="tag">Game Design</span>
+          <h2>Casual Games Portfolio</h2>
+          <span class="open">Open PDF</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+
+  <footer>© 2026 Marc Dabad · marcandorra92@gmail.com</footer>
+</main>
+</body>
+</html>
